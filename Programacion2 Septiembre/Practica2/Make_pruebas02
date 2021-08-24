@@ -1,0 +1,31 @@
+#------------------------------------------------------------------------------
+# File:   Makefile
+# Author: Programación II-Unizar
+# Date:   febrero 2021
+# Coms:   Ejemplo de Makefile para la práctica 1 de Programación II
+#         "make all" compila y generará los tres ejecutables
+#         "make tiempoReaccion" compila y genera "tiempoReaccion"
+#         ...
+#         "make clean" borra todo lo generado, si existe (ver línea 40-50)
+#------------------------------------------------------------------------------
+# Definición de macros
+CC = g++
+CPPFLAGS = -I. -std=c++11      #opciones de compilación
+LDFLAGS =                      #opciones de linkado
+RM = rm -f                     #comando para borrar ficheros
+
+all: pruebas02
+#-----------------------------------------------------------
+# Compilacion
+pruebas02.o: pruebas02.cpp
+    ${CC} -c pruebas02.cpp ${CPPFLAGS}
+#linkado
+pruebas02: pruebas02.o funcionesPilaEnt.o
+    ${CC} pruebas02.o funcionesPilaEnt.o -o pruebas02 ${LDFLAGS}
+
+funcionesPilaEnt.o: funcionesPilaEnt.cpp funcionesPilaEnt.hpp
+    ${CC} -c funcionesPilaEnt.cpp ${CPPFLAGS}
+
+# LIMPIEZA de todo lo generado. Ojo: se borrarán sin preguntar
+clean:
+    ${RM} funcionesPilaEnt.o pruebas02.o pruebas02
